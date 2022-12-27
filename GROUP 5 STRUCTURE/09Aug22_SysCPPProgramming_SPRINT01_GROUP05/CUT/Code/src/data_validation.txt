@@ -1,144 +1,243 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
-
- 
-
-#define TRUE 1
-#define FALSE 0
-
- 
-
-int password_validation(char *);
-int username_validation(char *);
-int ticket_id_validation(int);
-int project_id_validation(int);
-int bug_id_validation(int);
-
- 
+#include"datavalidation_header.h"
 
 
 
-int username_validation(char *username)
+/*Function to validate the username
+parameter:char pointer to store username
+return-type: int
+*/
+
+int username_validation(char *username) //username validation
 {
-        int len,i;
-        int small=0,caps=0,num=0,spec_char=0;
-        len = strlen(username);
-
- 
-
- 
-
-        if(len > 10)
+int len,i;
+int small=0,caps=0,num=0,spec_char=0;
+len=strlen(username);
+if(len>10)
+{
+        return FALSE;
+}
+else
+{
+        for(i=0;i<len;i++)
         {
-                return FALSE;
+                if(username[i] >= 'a' && username[i] <= 'z')
+                        small++;
+                else if(username[i] >= 'A' && username[i] <= 'Z')
+                        caps++;
+                else if(username[i] >= '0' && username[i] <= '9')
+                        num++;
+                else if(username[i] >= '!' && username[i] <= '/')
+                        spec_char++;
+        }
+        if((len <= 10) || (num >= 1) || (spec_char >= 1))
+        {
+                return TRUE;
         }
         else
         {
-                for(i=0;i<len;i++)
-                {
-                        if(username[i] >= 'a' && username[i] <= 'z')
-                                small++;
-                        else if(username[i] >= 'A' && username[i] <= 'Z')
-                                caps++;
-                        else if(username[i] >= '0' && username[i] <= '9')
-                                num++;
-                        else if(username[i] >= '!' && username[i] <= '/')
-                                spec_char++;
-                }
-                if((len <= 10) || (num >= 1) || (spec_char >= 1))
-                {
-                        return TRUE;
-                }
-                else
-                {
-                        return FALSE;
-                }
+                return FALSE;
         }
 }
 
- 
 
-int password_validation(char *password)
+
+/*Function to validate password
+parameter:char pointer to store password
+return-type: int 
+*/
+
+int password_validation(char *password) //password validation
 {
         int len,i;
         int small=0,caps=0,num=0,spec_char=0;
         len = strlen(password);
-        if(len > 8)
+        if(len>8)
         {
-                return FALSE;
+              return FALSE;
         }
         else
         {
                 for(i=0;i<len;i++)
                 {
-                        if((password[i] >= 'a' && password[i] <= 'z'))
-                                small++;
-                        else if(password[i] >= 'A' && password[i] <= 'Z')
-                                caps++;
-                        else if(password[i] >= '0' && password[i] <= '9')
-                                num++;
-                        else if(password[i] == '!' || password[i] == '@' || password[i] == '#' ||password[i] == '$' || password[i] == '%' || password[i] == '^' || password[i] == '&' || password[i] == '*')
-                                spec_char++;
-                }
-                if(small >= 1 && caps >= 1 && num >= 1 && spec_char >= 1)
-                        return TRUE;
-                else
-                        return FALSE;
+                     if((password[i] >= 'a' && password[i] <= 'z'))
+                             small++;
+                     else if(password[i] >= 'A' && password[i] <= 'Z')
+                             caps++;
+                     else if(password[i] >= '0' && password[i] <= '9')
+                             num++;
+                     else if(password[i] == '!' || password[i] == '@' || password[i] =='#' || password[i] == '$' || password[i] == '%' || password == '^' ||password == '&' || password == '*')
+                             spec_char++;
+        }
+        if(small >= 1 && caps >=1 && num >= 1 && spec_char >= 1)
+                return TRUE;
+        else
+                return FALSE;
         }
 }
 
- 
 
 
-int ticket_id_validation(int ticket_id)
+/*Function to validate ticketid
+parameter:int parameter to store ticked_id
+return-type: int 
+*/
+
+int ticket_id_validation(int ticket_id) //ticketid validation
 {
-        int count = 0;
+        int count =0;
         do
         {
                 ticket_id /= 10;
                 count++;
         }while(ticket_id != 0);
-
- 
-
- 
-
         if(count == 6)
                 return TRUE;
         else
                 return FALSE;
 }
-int project_id_validation(int project_id)
+
+
+
+/*Function to accept details from user for login
+parameter:int parameter to store project_id
+return-type: int 
+*/
+
+int project_id_validation(int project_id) //projectid validation
 {
-        int count = 0;
+        int count =0;
         do
         {
                 project_id /= 10;
                 count++;
         }while(project_id != 0);
-
- 
-
- 
-
         if(count == 6)
                 return TRUE;
         else
                 return FALSE;
 }
-int bug_id_validation(int bug_id)
+
+
+
+/*Function to validate bugid
+parameter:int parameter to store bug_id
+return-type: int 
+*/
+
+int bug_id_validation(int bug_id) //bugid validation
+{
+        int count =0;
+        do
+        {
+                bug_id/ = 10;
+                count++;
+        }while(bug_id != 0);
+        if(count == 6)
+                return TRUE;
+        else
+                return FALSE;
+}
+
+
+
+/*Function to validate date
+parameter:int parameter to store date,month,year
+return-type: int 
+*/
+
+int date_validation(int dd,int mm,int yyyy) //date validation
+{
+        if(yyyy >= 2022 && yyyy <= 2025)
+        {
+                if(mm >= 1 && mm <= 12)
+                {
+                        if((dd >= 1 && dd <= 31) && (mm == 1 || mm == 3 || mm == 5 || mm == 7 || mm == 8 || mm == 10 || mm == 12))
+                                return TRUE;
+                        else if((dd >= 1 && dd <= 30) && (mm == 4 || mm == 6 || mm == 9 || mm == 11))
+                                return TRUE;
+                        else if((dd >= 1 && dd <= 28) && (mm == 2))
+                                return TRUE;
+                        else if(dd == 29 && mm == 2 && (yyyy % 400 == 0 ||(yyyy % 4 == 0 && yyyy % 100 != 0)))
+                                return TRUE;
+  else if(dd == 29 && mm == 2 && (yyyy % 400 == 0 ||(yyyy % 4 == 0 && yyyy % 100 != 0)))
+                                return TRUE;
+                        else
+                                return FALSE;
+                }
+        }
+}
+
+
+
+/*Function to validate number
+parameter:int parameter to store mobilenumber
+return-type: int 
+*/
+
+int Is_Mobileno_validation(int mobileno)
+{
+
+        int count=0;
+        while(mobileno != 0)
+        {
+                mobileno /= 10;
+                count++;
+
+        }
+        if(count != 10)
+                return 0;
+        else
+                return 1;
+        return 0;
+}
+
+
+
+/*Function to validate email
+parameter:char pointer
+return-type: int 
+*/
+
+int Is_email_validation(char *email)    //email validation
+{
+        char temp;
+        int dot=0,special_char=0,i,len;
+        len=strlen(email);
+        for(i=0;i<len;i++)
+        {
+            if(email[i]=='@')
+    special_char++;
+            if(email[i]=='.')
+                  dot++;
+        }
+        if(dot == 1 && special_char == 1)
+        {
+              if(strlen(email) <= 30)
+                  {
+                       return 0;
+                  }
+         }
+        else
+              return 1;
+}
+
+
+
+/*Function to validate userid
+parameter:int parameter to store user_id
+return-type: int 
+*/
+
+int user_id_validation(int user_id) //userid validation
 {
         int count = 0;
         do
         {
-                bug_id /= 10;
+                user_id /= 10;
                 count++;
-        }while(bug_id != 0);
+        }while(user_id != 0);
 
- 
 
- 
 
         if(count == 6)
                 return TRUE;
