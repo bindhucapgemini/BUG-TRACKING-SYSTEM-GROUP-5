@@ -1,5 +1,5 @@
-//Definition file for manage projects
 #include"project_header.h"
+#include"ticket_header.h"
 //Function header::
 /*This function is used to accept project details from the user
 parameter:No Parameters
@@ -8,158 +8,143 @@ return-type:void as it returns nothing
 
 
 
-void addproject(void)  //To add project
+void addProject(void)  //To add project
 {
-    int i;
-        FILE *fp;
-        pro p;
-        printf("\t------------ADD PROJECT--------------");
-        fp = fopen("project.txt","a");
-        if(fp==NULL)
-        {
-                printf("\nFile not available");
-                exit(0);
-        }
-        printf("\nEnter project name: ");
-        scanf("%s",p.p_name);
-        printf("\nEnter project id: ");
-        scanf("%d",&p.p_id);
-        printf("\nEnter project description: ");
-        scanf("%s",p.p_desc);
-        printf("\nEnter project start date dd/mm/yyyy: ");
-        scanf("%d/%d/%d",&p.start_date.day ,&p.start_date.month ,&p.start_date.year);
-        printf("\nEnter project end date dd/mm/yyyy: ");
-        scanf("%d/%d/%d",&p.end_date.day ,&p.end_date.month ,&p.end_date.year);
-        printf("\nEnter number of employees:");
-        scanf("%d",&p.p_numberofemployees);
-        fprintf(fp,"%s,%d,%s,%d/%d/%d,%d/%d/%d,%d",p.p_name,p.p_id,p.p_desc,p.start_date.day,p.start_date.month,p.start_date.year,p.end_date.day,p.end_date.month,p.end_date.year,p.p_numberofemployees);
-        printf("\nDo you want to continue(0/1):");
-        scanf("%d",&i);
-        add_employee_to_project(project_id);
-        fclose(fp);
-}
+        int i;
+        FILE *fp;
+        pro p;
+        printf("\t------------ADD PROJECT--------------");
+        fp = fopen("project.txt","a");
+        if(fp==NULL)
+        {
+                printf("\nFile not available");
+                exit(0);
+        }
+        printf("\nEnter project name: ");
+        scanf("%s",p.p_name);
+        printf("\nEnter project id: ");
+        scanf("%d",&p.p_id);
+        printf("\nEnter project description: ");
+        scanf("%s",p.p_desc);
+        printf("\nEnter project start date dd/mm/yyyy: ");
+        scanf("%d/%d/%d",&p.start_date.day ,&p.start_date.month ,&p.start_date.year);
+        printf("\nEnter project end date dd/mm/yyyy: ");
+        scanf("%d/%d/%d",&p.end_date.day ,&p.end_date.month ,&p.end_date.year);
+        printf("\nEnter number of employees:");
+        scanf("%d",&p.p_numberofemployees);
+        fprintf(fp,"%s,%d,%s,%d/%d/%d,%d/%d/%d,%d",p.p_name,p.p_id,p.p_desc,p.start_date.day,p.start_date.month,p.start_date.year,p.end_date.day,p.end_date.month,p.end_date.year,p.p_numberofemployees);
+        printf("\nDo you want to continue(0/1):");
+        scanf("%d",&i);
+        add_employee_to_project(p.p_id);
+        fclose(fp);
+	}
 
- 
-void add_employee_to_project(project_id)
+
+void add_employee_to_project( int project_id)
 {
-   int employee_id;
+   int employee_id;
    int ch;
    FILE *fp;
-   fp = fopen("emp_project.txt,"a");
-   do
-   {
-     printf("Enter emp_id for this project %d",project_id)
-     scanf("%d,&employee_id);
-     fprintf("%d,%d",project_id,employee_id);
-     printf("Do you want to add more employees for this project?(0/1));
-     scanf("%d",&ch);
-    }while(ch!=0);
+   fp = fopen("emp_project.txt","a");
+   do
+   {
+     printf("Enter emp_id for this project:");
+     scanf("%d",&employee_id);
+     fprintf(fp,"%d,%d",project_id,employee_id);
+     printf("Do you want to add more employees to the project(0/1):");
+     scanf("%d",&ch);
+    }while(ch!=0);
+   manage_projects();
 }
-
-
-
 //creating newnode for LinkList with data fetched from file in formal parameter n
-node* createNode(project n)
+pro* createNode()
 {
-  node *newnode = (node*)malloc(sizeof(node));
-
-  newnode->projectid=n.projectid;
-  strcpy(newnode->report,n.report);
-
+  pro p;
+  pro *newnode = (pro*)malloc(sizeof(p));
+  newnode->p_id = p.p_id;
   newnode->next=NULL;
-
   return newnode;
 }//end of createNode()
-
-
-
 /*adding node in LL containing emp_details
 paramters: *head pointing to 1st node of LL, *rear pointing to last node, *newnode containing new record fetched from file*/
-void addNode(node **head,node **rear,node *newnode)
+pro* addNode( pro *head,pro *newnode)
 {
-    //check if LL is empty
-    if(*head==NULL)
-         *head = *rear = newnode;
-    else
-    {
-        (*rear)->next = newnode;      
-        *rear = newnode; 
-    }
-}
- 
+        pro *q;
 
+        q = head;
+        while(q->next !=NULL)
+        {
+                q = q->next;
+        }
+        q = newnode;
+	}
 //display LL on screen
-void displayList(node *head)
+void displayList(pro *head)
 {
-    node *temp=head;
-    if(temp==NULL)
-         printf("\n\n\tLinked List is empty.......!!!!!");
-    else
-    {
-        while(temp!=NULL)
-        {
-            printf("%d  %s\n",temp->employee_id,temp->name);
-            temp = temp->next;    //this will shift temp to next node
-        }
-    }
-}//display()
-
-
-
-
+    pro *temp=head;
+    tkt r;
+    if(temp==NULL)
+         printf("\n\n\tLinked List is empty.......!!!!!");
+    else
+    {
+        while(temp!=NULL)
+        {
+            printf("%d ",temp->p_employeeid);
+            temp = temp->next;    //this will shift temp to next node
+        }
+    }
+}
 /*This function is used to delete the project
 parameter:No Parameters
 return-type:void as it returns nothing
 */
-void deleteProject(report n,node *head)
+void deleteProject()
 {
         FILE *fp;
-        node *temp = NULL;
-        node *tag = NULL;
-        node *newnode = NULL;
-	char data[50];   //string to read data from file
-
-  	char *token,*context=NULL;   //pointers for tokeninzing
-  	char token_list[2][10];     //array of strings to store tokens from one record
-  	int i=0;                    //for iteration in looping
-        int temp_id;
-
+        pro *temp = NULL;
+        pro *tag = NULL;
+        pro *head =NULL;
+        pro *newnode = NULL;
+        pro *rear = NULL;
+        char data[50];   //string to read data from file
+        char *token,*context=NULL;   //pointers for tokeninzing
+        char token_list[1][10];     //array of strings to store tokens from one record
+        int i=0;                    //for iteration in looping
+        int tempproject_id;
+        pro p;
         fp = fopen("ticket.txt","r");  //reads from a existing file
         if(fp == NULL) //file not existing then fopen returns NULL
         {
                 printf("\nFile not available.......:");
+                manage_projects();
+		                manage_projects();
                 exit(0);
         }
         //reading from file and adding all data in linked  list
-        while( fgets(data,50,fptr) != NULL)
-	{
-		i=0;
-		data[strlen(data)-1] ='\0';
-		printf("\nData fetched from file::%s  ",data);
-		token=NULL;
-        	token = strtok_r(data,",",&context);
-		while(token!=NULL)
-		{
-			strcpy(token_list[i],token);
-			i++;
-			token = strtok_r(NULL,",",&context);
-		}
-		//store data in struct variable after tokenizing
-		e.eid = atoi(token_list[0]);
-		strcpy(e.name,token_list[1]);
-
-		//write data to LL
-		newnode = createNode(e);
-		addNode(&head,&rear,newnode);
-	}
+        while( fgets(data,50,fp) != NULL)
+        {
+                i=0;
+                data[strlen(data)-1] ='\0';
+                printf("\nData fetched from file::%s  ",data);
+                token=NULL;
+                token = strtok_r(data,",",&context);
+                while(token!=NULL)
+                {
+                        strcpy(token_list[i],token);
+                        i++;
+                        token = strtok_r(NULL,",",&context);
+                }
+                //store data in struct variable after tokenizing
+                p.p_id = atoi(token_list[0]);
+                //write data to LL
+                newnode = createNode(p);
+                addNode(head,newnode);
+        }
         fclose(fp); //closing file to release resources allocated for the file
-
-        printf("\n\tEnter the project id: ");//taking user enter date to delete a note
-        scanf("%d",&temp_id);
-
+        printf("\n\tEnter the project id: ");//taking user enter data to delete a note
+        scanf("%d",&tempproject_id);
         temp = head;
-	tag = temp;
-
+        tag = temp;
         if(temp == NULL)
         {
                 printf("\n\n\tLinked list is empty.........!!!!!\n");
@@ -169,8 +154,8 @@ void deleteProject(report n,node *head)
         {
                 while(temp != NULL)
                 {
-                        if(temp_id != temp->projectid) //comparing the user entered date with the existing projectid in file
-                        {
+                        if(tempproject_id == temp->p_id) //comparing the user entered data with the existing projectid in file
+				                        {
                                 if(temp == head)
                                 {
                                         head = temp->next;
@@ -179,7 +164,7 @@ void deleteProject(report n,node *head)
                                 }
                                 else
                                 {
-                                        tag->next = temp->next;   //connecting tag with temp's neighbour node
+                                        tag -> next = temp -> next;   //connecting tag with temp's neighbour node
                                         free(temp);
                                         break;
                                 }
@@ -191,15 +176,7 @@ void deleteProject(report n,node *head)
                         }
                 }
         }
-
-        fp = fopen("project.txt","w");   //write in the file
-        if(fp == NULL)   //file not existing then fopen returns NULL
-        {
-                printf("\nFile not available.......: ");
-                exit(0);
-        }
         temp = head;
-
         if(temp == NULL)
         {
                 printf("\n\n\tLinked list is empty.........!!!!!\n");
@@ -209,16 +186,14 @@ void deleteProject(report n,node *head)
         {
                 while(temp != NULL)
                 {
-                        fprintf(fptr,"%d,%s",temp->projectid,);
+                        fprintf(fp,"%d",temp->p_id);
                         temp=temp->next;
                 }
-                printf("\t\tProject Deleted Successfully!!");
+                printf("\t\tProject deleted successfully");
         }
         fclose(fp);  //closing file to release resources allocated for the file
+        manage_projects();
 }//end of deletenote()
-
-
-
 /*This function is used to modify the project
 parameter:No Parameters
 return-type:void as it returns nothing
@@ -233,13 +208,21 @@ void modifyProject(void)  //To modify project
         struct temp_date new_start_date;
         struct temp_date new_end_date;
         char temp_desc[100];
+        FILE *fp;
         pro p;
         pro *temp;
+        fp = fopen("project.txt","r");
+        if(fp ==NULL)
+        {
+                printf("\nFile not available.:");
+                manage_projects();
+                exit(0);
+        }
         printf("\nEnter the project id to modify the details: ");
         scanf("%d",&id);
         while(temp != NULL)
         {
-                if(temp->id==p_id)
+                if(temp->p_id==id)
                 {
                         printf("\n----------Choose the option to be modified-----------\n");
                         printf("\n\t1.Update project description\
@@ -252,7 +235,7 @@ void modifyProject(void)  //To modify project
                         switch(ch)
                         {
                         case DESC:
-                                printf("\nEnter the project description to be modified: ");
+					                                printf("\nEnter the project description to be modified: ");
                                 while(getchar()!='\n');
                                 fgets(temp_desc,100,stdin);
                                 temp_desc[strlen(temp_desc)-1]='\0';
@@ -284,22 +267,19 @@ void modifyProject(void)  //To modify project
                         }
                         break;
                 }
-		else
-		  {
-                	temp = temp->next;
-		  }
+                else
+                  {
+                        temp = temp->next;
+                  }
         }
-	
+
         if(temp == NULL)
-        {
+                {
                 printf("\nProject ID not found to modify\n");
                 return;
         }
         updateNode();
 }
-
-
-
 /*This function is used to update the project details
 parameter:No parameters
 retrun-type:nothing
@@ -316,6 +296,7 @@ void updateNode()
         }
         fclose(fp);
 }
+
 
 
 
