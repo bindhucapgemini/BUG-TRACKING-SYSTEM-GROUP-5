@@ -1,0 +1,19 @@
+CC = gcc
+CFLAGS  = -g -Wall
+
+default: bug_client
+
+# To create the executable file count we need the object files
+bug_client:  bug_client.o  
+	$(CC) $(CFLAGS) -o bug_client bug_client.o 
+
+# To create the object file bug_client.o, we need the source
+bug_client.o: login_header.h project_header.h ticket_header.h report_header.h validate_header.h login_def.c project_def.c report_def.c ticket_def.c datavalidation_def.c choice_def.c  
+	$(CC) $(CFLAGS) -c bug_client.c
+
+# To start over from scratch, type 'make clean'.  This
+# removes the executable file, as well as old .o object
+# files and *~ backup files:
+#
+clean: 
+	$(RM) count *.o *~
