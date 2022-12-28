@@ -11,7 +11,9 @@
 //declaration of macros used for making choices in the main menu
 #define REGISTER 1
 #define LOGIN 2
-#define MENU 'm'
+
+#define TRUE 1
+#define FALSE 0
 
 
 /*declaration of functions and structures for  login and registration */
@@ -34,5 +36,5 @@ typedef struct Employee
 
 void registration(void);
 int login(void);
-void bug_menu(void);
-
+void choiceMain(void);
+void mainMenu(void);
