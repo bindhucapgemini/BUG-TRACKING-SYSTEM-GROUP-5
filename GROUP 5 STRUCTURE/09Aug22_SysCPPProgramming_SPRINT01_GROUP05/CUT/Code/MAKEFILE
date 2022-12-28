@@ -1,0 +1,43 @@
+ INC = /home/system/Bugtrackingsystem/inc
+ SRC = /home/system/Bugtrackingystem/src
+ OBJ = /home/system/Bugtrackingsystem/obj
+
+ CFLAGS = -c -g -wall
+ LFLAGS = -o
+ GCC = gcc
+ CVFLAGS = -wall -c -g 
+ IFLAGS = -I $(INC) 
+ 
+ $(OBJ)/Login.o : $(SRC)/main.c
+         $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS)
+         mv *.o/home/system/Bugtrackingsystem/obj
+
+ $(OBJ)/Register.o : $(SRC)main.c
+        $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS) 
+        mv *.o/home/system/Bugtrackingsystem/obj
+ 
+ $(OBJ)/Bug Menu.o : $(SRC)menu.c 
+        $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS) 
+        mv *.o/home/system/Bugtrackingsystem/obj 
+
+ $(OBJ)/project management.o : $(SRC)management.c  
+        $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS) 
+        mv *.o/home/system/Bugtrackingsystem/obj 
+
+ $(OBJ)/management ticket.o :$(SRC)ticket.c
+        $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS) 
+        mv *.o/home/system/Bugtrackingsystem/obj 
+
+ $(OBJ)/management reports.o : $(SRC)reports.c 
+       $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS) 
+       mv *.o/home/system/Bugtrackingsystem/obj 
+
+ $(OBJ)/Datavalidation.o : $(SRC)/validation.c
+       $(GCC) $(CFLAGS) $(SRC)/main.c $(IFLAGS) 
+        mv *.o/home/system/Bugtrackingsystem/obj 
+
+$(BIN)/client : $(OBJ)/login.o $(OBJ)/Register.o  $(OBJ)/Bug Menu.o $(OBJ)/project management.o $(OBJ)/management ticket.o $(OBJ)/management reports.o $(OBJ)/Datavalidation.o
+             $(GCC) $(OBJ)/login.o $(OBJ)/Register.o  $(OBJ)/Bug Menu.o $(OBJ)/project management.o $(OBJ)/management ticket.o $(OBJ)/management reports.o $(OBJ)/Datavalidation.o $(LFLAGS) $(BIN)/client
+
+clean: 
+       rm -f $(OBJ)/*.o $(BIN)/client
