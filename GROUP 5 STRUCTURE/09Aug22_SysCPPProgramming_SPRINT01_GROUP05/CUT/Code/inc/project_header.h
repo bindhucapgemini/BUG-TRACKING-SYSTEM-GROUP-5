@@ -1,4 +1,3 @@
-//header file::
 /* This is file containing function prototype, global declarations.
 */
 
@@ -27,21 +26,22 @@ struct p_date
 };
 
 //structure declaration Project to store attributes
-typedef struct Project 
+typedef struct Project
 {
         char p_name[20],p_desc[50];
         int p_id,p_numberofemployees,p_employeeid;
         struct p_date start_date;
         struct p_date end_date;
-        struct project *next;
+        struct Project *next;
+
 }pro;
 
-
-
-
-void addProject(void);  //To add details
-node* createNode(report); //To create newnode
-node* addNode(node *,node *); //To add newnode in linkedlist
-void deleteProject(report,node *); //To delete project
+void addProject(void);//To add details
+void add_employee_to_project(int);
+pro* createNode(); //To create newnode
+pro* addNode(pro *, pro *); //To add newnode in linkedlist
+void deleteProject(); //To delete project
+void displayList(pro *);
 void modifyProject(void); //To modify details
 void updateNode();
+void manage_projects(void);
