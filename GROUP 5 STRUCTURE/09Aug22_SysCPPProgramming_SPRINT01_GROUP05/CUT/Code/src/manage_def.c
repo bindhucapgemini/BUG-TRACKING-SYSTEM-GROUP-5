@@ -1,5 +1,5 @@
 //Definition file for manage projects
-#include"bug_header.h"
+#include"project_header.h"
 //Function header::
 /*This function is used to accept project details from the user
 parameter:No Parameters
@@ -319,247 +319,242 @@ void updateNode()
 
 
 
+#include "ticket_header.h"
 //function to add the ticket into the bug tracking system
 void addticket(void)
 {
-        int projectid=0,ticketid=0;
-        FILE *fptr;
-        tkt t;
-        //struct date start_date
-        //struct date end_date;
-        //printf("\t-----ADD TICKET------");
-        fptr = fopen("ticket.txt","a");
-        if(fptr==NULL)
-        {
-                printf("\nfile not available");
-                exit(0);
-        }
-        system("clear");
-        printf("\nEnter emp_name:");
-        scanf("%s",t.emp_name);
-        printf("\nEnter project_id:");
-        scanf("%d",&t.project_id);
-        if(project_id_validation(t.project_id)==1)
-                projectid++;
-        else
-                printf("Incorrect project id\n");
-        printf("\nEnter tkt_id:");
-        scanf("%d",&t.tkt_id);
-        if(ticket_id_validation(t.tkt_id)==1)
-                ticketid++;
-        else
-                printf("Incorrect ticket id\n");
-        printf("\nEnter tkt start_date(dd/mm/yyyy):");
-        scanf("%d/%d/%d",&t.start_date.day,&t.start_date.month,&t.start_date.year);
-        if(date_validation(t.start_date.date,t.start_date.month,t.start_date.year)==1)
-                startdate++;
-        else
-                printf("Incorrect start date\n");
-        printf("\nEnter tkt end_date(dd/mm/yyyy):");
-        scanf("%d/%d/%d",&t.end_date.day,&t.end_date.month,&t.end_date.year);
-
-	if(date_validation(t.end_date.date,t.end_date.month,t.end_date.year)==1)
-                enddate++;
-        else
-                printf("Incorrect end_date\n");
-        //fprintf(fptr,"%s",t.emp_name);
-        fprintf(fptr,"%s,%d,%d",t.emp_name,t.project_id,t.tkt_id);
-        fprintf(fptr,"\n\n\n");
-        fclose(fptr);
+        int projectid=0,ticketid=0,enddate=0,startdate=0;
+        FILE *fptr;
+        tkt t;
+        //struct date start_date
+        //struct date end_date;
+        //printf("\t-----ADD TICKET------");
+        fptr = fopen("ticket.txt","a");
+        if(fptr==NULL)
+        {
+                printf("\nfile not available");
+                exit(0);
+        }
+        system("clear");
+        printf("\nEnter emp_name:");
+        scanf("%s",t.emp_name);
+        printf("\nEnter project_id:");
+        scanf("%d",&t.project_id);
+        if(project_id_validation(t.project_id)==1)
+                projectid++;
+        else
+                printf("Incorrect project id\n");
+        printf("\nEnter tkt_id:");
+        scanf("%d",&t.tkt_id);
+        if(ticket_id_validation(t.tkt_id)==1)
+                ticketid++;
+        else
+                printf("Incorrect ticket id\n");
+        printf("\nEnter tkt start_date(dd/mm/yyyy):");
+        scanf("%d/%d/%d",&t.start_date.date,&t.start_date.month,&t.start_date.year);
+        if(date_validation(t.start_date.date,t.start_date.month,t.start_date.year)==1)
+                startdate++;
+        else
+                printf("Incorrect start date\n");
+        printf("\nEnter tkt end_date(dd/mm/yyyy):");
+        if(date_validation(t.end_date.date,t.end_date.month,t.end_date.year)==1)
+                enddate++;
+	        else
+                printf("Incorrect end_date\n");
+        //fprintf(fptr,"%s",t.emp_name);
+        fprintf(fptr,"%s,%d,%d",t.emp_name,t.project_id,t.tkt_id);
+        fprintf(fptr,"\n\n\n");
+        fclose(fptr);
 }
-
 void displayticket(void)
 {
-        FILE *fptr;
-        char display[100];
-        fptr = fopen("ticket.txt", "r");
-        while(fscanf(fptr, "%s",display)!=EOF)
-        {
-                printf("%s",display);
-        }
-        fclose(fptr);
+        FILE *fptr;
+        char display[100];
+        fptr = fopen("ticket.txt", "r");
+        while(fscanf(fptr, "%s",display)!= -1)
+        {
+                printf("%s",display);
+        }
+        fclose(fptr);
 }
-
-
 
 //function to file the bug into the bug tracking system
 void filebug(int id)
 {
-        int bug=0;
-        int j;
-        scanf("%d", &j);
-        struct report r;
-        printf("Reporting a bug\n");
-        time_t CurrentTime;
-        time(&CurrentTime);
-        FILE *fptr;
- 
-        fptr = fopen("ticket.txt","a");
- 
-        //BugID
-        printf("Enter BugID\n");
-        scanf("%d", &r.BugID);
-        if(bug_id_validation(r.BugID)==1)
+        int bug=0;
+        int j;
+        scanf("%d", &j);
+        struct report r;
+        printf("Reporting a bug\n");
+        time_t CurrentTime;
+        time(&CurrentTime);
+        FILE *fptr;
 
- 	 bug++;
-        else
-                printf("Incorrect Bug ID");
- 
-        //Bug description
-        printf("Enter description\n");
-        while(getchar()!='\n');
-        fgets(r.bugdescription,500,stdin);
-        //scanf("%s",r.bugdescription);
-        //fgets(r.bugdescription,200,stdin);
-        r.bugdescription[strlen(r.b.bugdescription)-1]='\0';
-        //fgets(r.bugdescription,200,stdin);
+        fptr = fopen("ticket.txt","a");
 
-  	printf("Enter BugName\n");
-        scanf("%s", r.bugname);
- 
-        printf("Enter bug type:\n");
-        while(getchar()!='\n');
-        fgets(r.bugtype,50,stdin);
-        r.bugtype[strlen(r.bugtype)-1]='\0';
- 
-        printf("Enter bug priority:\n");
-        scanf("%s", r.bugpriority);
- 
-        //if(ticket==1 && bug==1 && project==1)
- 
-        fprintf(fptr, "%s,%s,%s,%s", r.bugdescription, r.bugname, r.bugtype, r.bugpriority);
-        fprintf(fptr, "\n");
-        //if ticketID cannot be found
+        //BugID
+        printf("Enter BugID\n");
+        scanf("%d", &r.BugID);
+        if(bug_id_validation(r.BugID)==1)
+                bug++;
+        else
+                printf("Incorrect Bug ID");
+	
+        //Bug description
+        printf("Enter description\n");
+        while(getchar()!='\n');
+        fgets(r.bugdescription,500,stdin);
+        r.bugdescription[strlen(r.bugdescription)-1]='\0';
+        //Bug name
+        printf("Enter BugName\n");
+        scanf("%s", r.bugname);
+        //bug type
+        printf("Enter bug type:\n");
+        while(getchar()!='\n');
+        fgets(r.bugtype,50,stdin);
+        r.bugtype[strlen(r.bugtype)-1]='\0';
+        //bug priority
+        printf("Enter bug priority:\n");
+        scanf("%s", r.bugpriority);
 
+        //if(ticket==1 && bug==1 && project==1)
 
-	if (fptr == NULL)
-               printf("Ticket not created!!!\n");
-        fprintf(fptr, "\n");
-        fprintf(fptr, "DATE AND TIME : %s",ctime(&CurrentTime));
- 
-        printf("\nStatus of bug:\n");
-        printf("1. ASSIGNED\n");
-        printf("2.IN PROCESS\n 3. FIXED\n");
-        printf("4. SUBMITTED\n 5.QUALITY CHECK\n ENTER YOUR CHOICE:");
- 
-        //Date and time of bug creation
-        fprintf(fptr, "DATE AND TIME:%s", ctime(&CurrentTime));
-        //fprintf(ptr, "BUG STATUS:");
- 
-        //int j;
-        //scanf("%d", &j);
-        //switching to the status of the bug
-        switch (j) {
-                case 1:
-                        fprintf(fptr, "ASSIGNED\n");
-                        break;
-                case 2:
-                        fprintf(fptr, "IN PROCESS\n");
-                        break;
-                case 3:
-                        fprintf(fptr, "FIXED\n");
-                        break;
-                case 4:
-                        fprintf(fptr, "SUBMITTED\n");
-                        break;
-                case 5:
-                        fprintf(fptr, "QUALITY CHECK\n");
-                default:
-                        printf("invalid choice\n");
-                        break;
-        }
-        fclose(fptr);
+        fprintf(fptr, "%s,%s,%s,%s", r.bugdescription, r.bugname, r.bugtype, r.bugpriority);
+        fprintf(fptr, "\n");
+        //if ticketID cannot be found
+        if (fptr == NULL)
+               printf("Ticket not created!!!\n");
+        fprintf(fptr, "\n");
+        fprintf(fptr, "DATE AND TIME : %s",ctime(&CurrentTime));
+
+        printf("\nStatus of bug:\n");
+        printf("1. ASSIGNED\n");
+        printf("2.IN PROCESS\n 3. FIXED\n");
+        printf("4. SUBMITTED\n 5.QUALITY CHECK\n ENTER YOUR CHOICE:");
+
+        //Date and time of bug creation
+        fprintf(fptr, "DATE AND TIME:%s", ctime(&CurrentTime));
+ //fprintf(ptr, "BUG STATUS:");
+
+        //switching to the status of the bug
+        switch (j) {
+                case 1:
+			                        fprintf(fptr, "ASSIGNED\n");
+                        break;
+                case 2:
+                        fprintf(fptr, "IN PROCESS\n");
+                        break;
+                case 3:
+                        fprintf(fptr, "FIXED\n");
+                        break;
+                case 4:
+                        fprintf(fptr, "SUBMITTED\n");
+                        break;
+                case 5:
+                        fprintf(fptr, "QUALITY CHECK\n");
+                default:
+                        printf("invalid choice\n");
+                        break;
+        }
+        fclose(fptr);
 }
 
-
- 
 //function to change the status of the bug
 void changestatus()
 {
-        printf("Change status\n");
-        struct report r;
-        //Current time
-        time_t CurrentTime;
-        time(&CurrentTime);
-        FILE *fptr;
-        char bugname[50];
-        printf("Enter bug name:\n");
-        scanf("%s", r.bugname);
-        while(getchar()!='\n');
-        fgets(r.bugname,50,stdin);
-        r.bugname[strlen(r.bugname)-1]='\0';
-        fprintf(fptr, "Bug name:%s\n", r.bugname);
-        //fprintf(ptr, "\n");
-        //opening the bug in append mode
-        fptr = fopen("ticket.txt", "a");
-        printf("\n1.ASSIGNED\n");
-        printf("2.IN PROCESS\n 3.FIXED\n");
-        printf("4.SUBMITTED\n 5.QUALITY CHECK\n ENTER YOUR CHOICE:");
-        //CHANGE THE STATUS
-        int k;
-        scanf("%d", &k);
-
-	fprintf(fptr, "DATE AND TIME : %s",ctime(&CurrentTime));
-        //changing the status
-        switch (k) {
-                case 1:
-                        fprintf(fptr, "ASSIGNED\n");
-                        break;
-                case 2:
-                        fprintf(fptr, "IN PROCESS\n");
-                        break;
-                case 3:
-                        fprintf(fptr, "FIXED\n");
-                        break;
-                case 4:
-                        fprintf(fptr, "SUBMITTED\n");
-                        break;
-                case 5:
-                        fprintf(fptr, "QUALITY CHECK\n");
-                        break;
-                default:
-                        printf("invalid choice\n");
-                        break;
-        }
-        fclose(fptr);
+        printf("Change status\n");
+        struct report r;
+        //Current time
+        time_t CurrentTime;
+        time(&CurrentTime);
+        FILE *fptr;
+        char bugname[50];
+        printf("Enter bug name:\n");
+        scanf("%s", r.bugname);
+        while(getchar()!='\n');
+  fgets(r.bugname,50,stdin);
+        r.bugname[strlen(r.bugname)-1]='\0';
+        fprintf(fptr, "Bug name:%s\n", r.bugname);
+        //fprintf(ptr, "\n");
+        //opening the bug in append mode
+        fptr = fopen("ticket.txt", "a");
+        printf("\n1.ASSIGNED\n");
+	        printf("2.IN PROCESS\n 3.FIXED\n");
+        printf("4.SUBMITTED\n 5.QUALITY CHECK\n ENTER YOUR CHOICE:");
+        //CHANGE THE STATUS
+        int k;
+        scanf("%d", &k);
+        fprintf(fptr, "\n");
+        fprintf(fptr, "DATE AND TIME : %s",ctime(&CurrentTime));
+        //changing the status
+        switch (k) {
+                case 1:
+                        fprintf(fptr, "ASSIGNED\n");
+                        break;
+                case 2:
+                        fprintf(fptr, "IN PROCESS\n");
+                        break;
+                case 3:
+                        fprintf(fptr, "FIXED\n");
+                        break;
+                case 4:
+                        fprintf(fptr, "SUBMITTED\n");
+                        break;
+                case 5:
+                        fprintf(fptr, "QUALITY CHECK\n");
+                        break;
+                default:
+                        printf("invalid choice\n");
+                        break;
+        }
+        fclose(fptr);
 }
 
-
- 
 //function to report the bug
 void report()
 {
-        printf("REPORT");
-        FILE *fptr;
-        struct report r;
-        char name[50];
-        //asking bug name to report the bug of the file
-        printf("Enter bug name:\n");
-        scanf("%s", r.bugname);
-        fprintf(fptr, "Bugname:%s\n", r.bugname);
-        fprintf(fptr, "\n");
+        printf("REPORT");
+        FILE *fptr;
+        struct report r;
+        char name[50];
+        //asking bug name to report the bug of the file
+        printf("Enter bug name:\n");
+	        scanf("%s", r.bugname);
+        fprintf(fptr, "Bugname:%s\n", r.bugname);
+        fprintf(fptr, "\n");
+        fptr = fopen("ticket.txt", "a");
+        //fp = fopen(bugname, "r");
+        char ch;
+        ch = getc(fptr);
+        //character of the file
+        while (ch != EOF) {
+                printf("%c", ch);
+                ch = getc(fptr);
+        }
+        fclose(fptr);
 }
-
 void closeticket(void)
 {
         int close;
         FILE *fptr;
         {
-                int fptr=fopen("ticket.txt","w");
+                fptr=fopen("ticket.txt","r");
                 if(fptr == NULL)
                 {
-                        printf("BUG NOT RESOLVED");
-                        else
-                                printf("BUG RESOLVED");
-                        exit(1);
+                        printf("BUG RESOLVED");
                 }
-                printf("opened the fptr",fptr);
-                if(fptr != NULL)
-                {
-                        printf("close");
-                        exit(1);
-                }
+                else
+                        printf("CLOSE");
         }
+        if(fptr != NULL)
+        {
+                printf("BUG NOT RESOLVED");
+        }
+ else
+        {
+                printf("NOT CLOSE");
+        }
+        exit(1);
 }
 
 #include"report_header.h"
