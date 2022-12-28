@@ -1,0 +1,18 @@
+==1748==
+==1748== Process terminating with default action of signal 2 (SIGINT)
+==1748==    at 0x495FFD2: read (read.c:26)
+==1748==    by 0x48E2B9E: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:517)
+==1748==    by 0x48E3F85: _IO_default_uflow (genops.c:362)
+==1748==    by 0x48B627F: __vfscanf_internal (vfscanf-internal.c:627)
+==1748==    by 0x48B5161: __isoc99_scanf (isoc99_scanf.c:30)
+==1748==    by 0x10BC53: choiceMain (in /home/chaanush/BugTrackingSystem/code/src/a.out)
+==1748==    by 0x10C052: main (in /home/chaanush/BugTrackingSystem/code/src/a.out)
+==1748==
+==1748== HEAP SUMMARY:
+==1748==     in use at exit: 0 bytes in 0 blocks
+==1748==   total heap usage: 2 allocs, 2 frees, 2,048 bytes allocated
+==1748==
+==1748== All heap blocks were freed -- no leaks are possible
+==1748==
+==1748== For lists of detected and suppressed errors, rerun with: -s
+==1748== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
