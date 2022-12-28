@@ -1,7 +1,3 @@
-//header file::
-/* This is file containing function prototype, global declarations.
-*/
-
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -10,15 +6,19 @@
 #include <math.h>
 
 //declaration of macros used for making choices in the manage tickets
-#define FILEBUG 1
-#define CHANGESTATUS 2
-#define REPORT 3
+#define FILEBUG 3
+#define CHANGESTATUS 4
+#define REPORT 5
 #define EXIT 0
 #define TRUE 1
 #define FALSE 0
+#define ADDTICKET 1
+#define DISPLAYTICKET 2
+#define CLOSETICKET 6
 
 
 /*declaration of functions and structures for manage tickets */
+
 
 struct report
 {
@@ -38,21 +38,25 @@ int ticket_id_validation(int);
 int project_id_validation(int);
 int bug_id_validation(int);
 
- struct t_date
-   {
-     int day,month,year;
-   };
-
 //structure declaration ticket to store attributes
+
+
+struct t_date
+{
+        int date,month,year;
+};
+
 typedef struct ticket        //declaring structure
 {
-	 char emp_name[20];
+         char emp_name[20];
         int project_id ,tkt_id;
         struct t_date start_date;
         struct t_date end_date;
+        struct ticket *next;
 }tkt;
 
 void addticket(void);
 void displayticket(void);
 void closeticket(void);
+void manage_tickets(void);
 
