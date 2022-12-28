@@ -1,2 +1,0 @@
-hello: login_header.h project_header.h ticket_header.h report_header.h validate_header.h login_def.c project_def.c report_def.c ticket_def.c datavalidation_def.c choice_def.c bug_client.c
-        gcc -o executable login_def.c project_def.c report_def.c ticket_def.c datavalidation_def.c choice_def.c bug_client.c -I.
