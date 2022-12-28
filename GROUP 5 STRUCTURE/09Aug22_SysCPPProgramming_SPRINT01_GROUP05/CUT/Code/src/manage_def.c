@@ -562,96 +562,108 @@ void closeticket(void)
         }
 }
 
-//function to manage reports
+#include"report_header.h"
+
+void addnode(struct Node ** head_ref,int new_data)
+{
+
+        struct Node* new_node =(struct Node*) malloc(sizeof(struct Node));
+        struct Node *last = *head_ref;
+        new_node->data = new_data;
+        new_node->next = NULL;
+        if (*head_ref == NULL)
+        {
+                *head_ref = new_node;
+                return;
+        }
+        while (last->next != NULL)
+                last = last->next;
+        last->next = new_node;
+}
 
 void openReports()
 {
-        char temp[20];
-        char *token = NULL;
-        FILE *fptr;
-        char *fname = "C:\\Users\\TASANTHO\\Downloads";
-        fptr = fopen(fname,"r"); //reading formatted data from file//
+    struct Node **head = NULL;
+    struct pro p;
+    char *token = NULL;
+    char temp[20];
+    FILE *fptr;
+    //reading formatted data from file::
+    fptr = fopen("projects.txt","r");
+    if(fptr==NULL)
+    {
+      printf("\nCannot open file");
+          exit(0);
+    }
+    while( fgets(temp,sizeof(struct pro),fptr) != NULL)  //EOF=-1
+   {
 
-        if(fptr==NULL)
-        {
-                printf("\nCannot open file");
-                exit(0);
-        }
+           token = strtok(p.report_desc,"status:"); //to fetch multiple token from same string
+         while(token!=NULL)
+         {
+              token = strtok(NULL," ");
+		               if(token == "Open" )
+              {
+                           addnode(head,p.report_id);
+              }
+         }
+    }
 
-        while( fgets(temp,20,fptr) != NULL)  //EOF=-1
-        {
-                token = strtok(temp,"STATUS:");        //To fetch multiple token from same string//
-                while(token!=NULL)
-                {
-                        token = strtok(NULL,",");
-                        if(strcmp(token, "open") ==0)
-                        {
-                                printf("%s",fname);
-                                exit(0);
-                        }
-
-                }
-        }
-        fclose(fptr);
+   fclose(fptr);
 }
-
 void assigned(char* eid)
 {
-        char temp[20];
-        char *token = NULL;
-        FILE *fptr;
-        char *fname = "C:\\Users\\TASANTHO\\Downloads";
+    struct pro p;
+    struct Node **head = NULL;
+    char *token = NULL;
+    char temp[20];
+    FILE *fptr;
+    //reading formatted data from file::
+    fptr = fopen("projects.txt","r");
+    if(fptr==NULL)
+    {
+      printf("\nCannot open file");
+          exit(0);
+    }
+    while( fgets(temp,sizeof(struct pro),fptr) != NULL)  //EOF=-1
+   {
 
-        fptr = fopen(fname,"r");     //reading formatted data from file//
-        if(fptr==NULL)
-        {
-                printf("\nCannot open file");
-                exit(0);
-        }
-
-        while( fgets(temp,20,fptr) != NULL)  //EOF=-1
-        {
-                token = strtok(temp,"ASSIGNED TO:");
-                while(token!=NULL)
-                {
-                        token = strtok(NULL,",");       //To fetch multiple token from same string//
-                        if(strcmp(token, eid) ==0)
-                        {
-                                printf("%s",fname);
-                                exit(0);
-                        }
-                }
-
-        }
-        fclose(fptr);
+        token = strtok(p.report_desc,"ASSIGNED TO:"); //to fetch multiple token from same string
+         while(token!=NULL)
+         {
+              token = strtok(NULL," ");
+              if(token == eid )
+              {
+                 addnode(head,p.report_id);
+	      }
+         }
+    }
+   fclose(fptr);
 }
-
 void created(char* eid)
 {
-        char temp[20];
-        char *token = NULL;
-        FILE *fptr;
-        char *fname = "C:\\Users\\TASANTHO\\Downloads";     //reading formatted data from file//
+    struct pro p;
+    struct Node **head = NULL;
+    char *token = NULL;
+    char temp[20];
+    FILE *fptr;
+    //reading formatted data from file::
+    fptr = fopen("projects.txt","r");
+    if(fptr==NULL)
+    {
+      printf("\nCannot open file");
+          exit(0);
+    }
+    while( fgets(temp,sizeof(struct pro),fptr) != NULL)  //EOF=-1
+   {
 
-        fptr = fopen(fname,"r");
-        if(fptr==NULL)
-        {
-               printf("\nCannot open file");
-               exit(0);
-        }
-        while( fgets(temp,20,fptr) != NULL)  //EOF=-1
-        {
-                token = strtok(temp,"CREATEDBY:");     //To fetch multiple token from same string//
-                while(token!=NULL)
-                {
-                        token = strtok(NULL,",");
-                        if(strcmp(token, eid) ==0)
-                        {
-                                printf("%s",fname);
-                                exit(0);
-                        }
-                }
-
-        }
-        fclose(fptr);
-}
+        token = strtok(p.report_desc,"CREATED BY:"); //to fetch multiple token from same string
+         while(token!=NULL)
+         {
+              token = strtok(NULL," ");
+              if(token == eid )
+              {
+                addnode(head,p.report_id);
+              }
+         }
+    }
